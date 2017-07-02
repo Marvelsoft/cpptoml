@@ -475,7 +475,7 @@ class base : public std::enable_shared_from_this<base>
     template <class Visitor, class... Args>
     void accept(Visitor&& visitor, Args&&... args) const;
 
-    ~base() = default;
+    virtual ~base() = default;
 
   protected:
     base()
