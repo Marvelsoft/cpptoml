@@ -21,12 +21,12 @@
 #include <unordered_map>
 #include <vector>
 
-#if __cplusplus > 201103L
+#if defined(__GNUG__)
+#define CPPTOML_DEPRECATED(reason) __attribute__((deprecated))
+#elif __cplusplus > 201103L
 #define CPPTOML_DEPRECATED(reason) [[deprecated(reason)]]
 #elif defined(__clang__)
 #define CPPTOML_DEPRECATED(reason) __attribute__((deprecated(reason)))
-#elif defined(__GNUG__)
-#define CPPTOML_DEPRECATED(reason) __attribute__((deprecated))
 #elif defined(_MSC_VER)
 #if _MSC_VER < 1910
 #define CPPTOML_DEPRECATED(reason) __declspec(deprecated)
@@ -474,6 +474,8 @@ class base : public std::enable_shared_from_this<base>
 
     template <class Visitor, class... Args>
     void accept(Visitor&& visitor, Args&&... args) const;
+
+    ~base() = default;
 
   protected:
     base()
